@@ -2,20 +2,18 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 
 
-type RMNextPage ={
-    nextUrl: string
-}
+
 
 function NextPage() {
 
-    const [pageUrlNext, setPageUrlNext]= useState<RMNextPage>();
+    let [pageUrlNext, setPageUrlNext]= useState("https://rickandmortyapi.com/api/character");
 
     useEffect(() => {
-        axios.get("https://rickandmortyapi.com/api/character")
+        axios.get(pageUrlNext)
             .then((response) =>{
                 setPageUrlNext(response.data.info.next)
             })
-    },[])
+    },[pageUrlNext])
 
 
     function nextPageUrl() {
@@ -27,8 +25,6 @@ function NextPage() {
     return (
 
         <button onClick={nextPageUrl}>NextPage</button>
-
-
     );
 }
 

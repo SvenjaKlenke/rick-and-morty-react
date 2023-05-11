@@ -2,22 +2,21 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 
 
-type RMPrevPage ={
-    prevUrl: string
-}
+
+
 
 function PreviousPage() {
 
-    const [pageUrlPrev, setPageUrlPrev]= useState<RMPrevPage>();
+    let [pageUrlPrev, setPageUrlPrev]= useState("https://rickandmortyapi.com/api/character");
 
 
 
     useEffect(() => {
-        axios.get("https://rickandmortyapi.com/api/character")
+        axios.get(pageUrlPrev)
             .then((response) =>{
                 setPageUrlPrev(response.data.info.prev)
             })
-    },[])
+    },[pageUrlPrev])
 
     function previousPageUrl() {
         return pageUrlPrev
