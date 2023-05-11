@@ -1,16 +1,47 @@
-import React from 'react';
-import Characters from './Characters.json'
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import CharacterCard from "./CharacterCard";
+import axios from "axios";
 
 
+type RickAndMortyCharacter = {
+    id: number
+    name: string
+    status: string
+    image: string
+}
 
 
 function CharacterGallery() {
+    const [characters, setCharacters]= useState<RickAndMortyCharacter[]>([]);
+    const [inputFieldValue, setInputFieldValue] = useState ("");
 
+    useEffect( ()=> {
+        axios.get("https://rickandmortyapi.com/api/character")
+            .then((response) => {
+                setCharacters(response.data.results);
+            })
+    },[])
+
+    function useTextInput (event:ChangeEvent<HTMLInputElement>){
+        setInputFieldValue((event.target.value))    }
+
+    function showCharacterS (){
+        if (inputFieldValue === ""){
+            return characters.map((character) => <CharacterCard key = {character.id} name={character.name} status={character.status} image={character.image}/>)
+        }else {
+            const newArray = characters.filter((character ) => character.name.toLowerCase().includes(inputFieldValue.toLowerCase()))
+            return newArray.map((character) => <CharacterCard key = {character.id} name={character.name} status={character.status} image={character.image}/>)
+        }
+    }
     return (
-        <section>
-            {Characters.map((character) => <CharacterCard key = {character.id} name={character.name} status={character.status} image={character.image}/>)}
-        </section>
+        <div>
+            <input type="text" placeholder={"Please give us a name"} value={inputFieldValue}
+            onChange={useTextInput}/>
+            <br/>
+            <div>
+            {showCharacterS()}
+            </div>
+        </div>
     );
 }
 
