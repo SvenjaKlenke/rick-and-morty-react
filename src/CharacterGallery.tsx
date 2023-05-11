@@ -1,6 +1,8 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import CharacterCard from "./CharacterCard";
 import axios from "axios";
+import NextPage from "./NextPage";
+import PreviousPage from "./PreviousPage";
 
 
 type RickAndMortyCharacter = {
@@ -9,8 +11,6 @@ type RickAndMortyCharacter = {
     status: string
     image: string
 }
-
-
 function CharacterGallery() {
     const [characters, setCharacters]= useState<RickAndMortyCharacter[]>([]);
     const [inputFieldValue, setInputFieldValue] = useState ("");
@@ -21,6 +21,8 @@ function CharacterGallery() {
                 setCharacters(response.data.results);
             })
     },[])
+
+
 
     function useTextInput (event:ChangeEvent<HTMLInputElement>){
         setInputFieldValue((event.target.value))    }
@@ -33,10 +35,15 @@ function CharacterGallery() {
             return newArray.map((character) => <CharacterCard key = {character.id} name={character.name} status={character.status} image={character.image}/>)
         }
     }
+
+
+
     return (
         <div>
             <input type="text" placeholder={"Please give us a name"} value={inputFieldValue}
             onChange={useTextInput}/>
+            <br/>
+            <PreviousPage/><NextPage/>
             <br/>
             <div>
             {showCharacterS()}
