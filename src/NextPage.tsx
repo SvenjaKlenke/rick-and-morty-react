@@ -6,10 +6,10 @@ import axios from "axios";
 
 function NextPage() {
 
-    let [pageUrlNext, setPageUrlNext]= useState("https://rickandmortyapi.com/api/character");
+    const [pageUrlNext, setPageUrlNext]= useState("https://rickandmortyapi.com/api/character");
 
     useEffect(() => {
-        axios.get(pageUrlNext)
+        axios.get("https://rickandmortyapi.com/api/character")
             .then((response) =>{
                 setPageUrlNext(response.data.info.next)
             })

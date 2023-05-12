@@ -7,7 +7,7 @@ import axios from "axios";
 
 function PreviousPage() {
 
-    let [pageUrlPrev, setPageUrlPrev]= useState("https://rickandmortyapi.com/api/character");
+    const [pageUrlPrev, setPageUrlPrev]= useState("https://rickandmortyapi.com/api/character");
 
 
 
