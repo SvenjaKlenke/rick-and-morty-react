@@ -1,5 +1,6 @@
 import React from 'react';
 import CharacterCard from "./CharacterCard";
+import {PageRM} from "./useCharacters";
 
 
 
@@ -13,10 +14,18 @@ type RickAndMortyCharacter = {
 
 type Props = {
     inputFieldValue: string,
-        characters:  RickAndMortyCharacter[]
+    characters:  RickAndMortyCharacter[]
+    loadCharacters: ()=> void
+    prevPageUrl: ()=> void,
+    nextPageUrl:()=> void
+    pageUrl: PageRM
 }
 
 function CharacterGallery(props : Props) {
+
+
+
+
 
 
     function showCharacterS (){
@@ -30,6 +39,10 @@ function CharacterGallery(props : Props) {
 
     return (
         <div>
+            <div>
+                {props.pageUrl.prev === null?<></>:<button onClick={props.prevPageUrl}>PreviousPage</button>}
+                {props.pageUrl.next === null?<></>:<button onClick={props.nextPageUrl}>NextPage</button>}
+            </div>
             <div>
             {showCharacterS()}
             </div>
